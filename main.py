@@ -39,7 +39,6 @@ class MyWebBrowser():
         self.tabs.setTabsClosable(True)
         self.tabs.tabCloseRequested.connect(self.close_tab)
         
-        # Add first tab
         self.add_new_tab()
 
         self.go_btn.clicked.connect(lambda: self.navigate(self.url_bar.toPlainText()))
@@ -56,12 +55,10 @@ class MyWebBrowser():
         browser = QWebEngineView()
         browser.setUrl(QUrl("http://www.google.com"))
         
-        # Update current browser reference
         self.browser = browser
         self.tabs.addTab(browser, "New Tab")
         self.tabs.setCurrentWidget(browser)
         
-        # Connect signals for this tab
         browser.urlChanged.connect(lambda url, b=browser: self.update_url_bar(url, b))
         browser.titleChanged.connect(lambda title, b=browser: self.update_tab_title(title, b))
     
@@ -69,7 +66,6 @@ class MyWebBrowser():
         if self.tabs.count() > 1:
             self.tabs.removeTab(index)
         else:
-            # Don't close the last tab
             pass
     
     def update_url_bar(self, url, browser):
